@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Packages.Data
+namespace Packages.Models
 {
     [Serializable]
     public class DataModel

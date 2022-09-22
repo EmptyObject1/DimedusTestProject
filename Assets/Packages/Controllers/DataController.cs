@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
+using Packages.Models;
 using UnityEngine;
 
-namespace Packages.Data
+namespace Packages.Controllers
 {
-    public class DataManager : MonoBehaviour
+    public class DataController : MonoBehaviour
     {
         [SerializeField] private int listLengthValue;
         [SerializeField] private int countLettersValue;
@@ -14,10 +15,10 @@ namespace Packages.Data
 
         private void Start()
         {
-           SetupDefaultValues();
+           SetupDefaultNames();
         }
 
-        private void SetupDefaultValues()
+        private void SetupDefaultNames()
         {
             FirstListDataModel = new ListDataModel
             {
@@ -45,7 +46,7 @@ namespace Packages.Data
 
         public void FillRandomValues()
         {
-            SetupDefaultValues();
+            SetupDefaultNames();
             if (FirstListDataModel.DataModels.Count == 0) GenerateRandomValues(FirstListDataModel);
             if (SecondListDataModel.DataModels.Count == 0) GenerateRandomValues(SecondListDataModel);
         }
@@ -60,6 +61,7 @@ namespace Packages.Data
                 tempDataModel = new DataModel(i, GetRandomString());
                 inputList.Add(tempDataModel);
             }
+            
             inputListDataModel.DataModels = inputList;
         }
 

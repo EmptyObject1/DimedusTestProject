@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Packages.Data
+namespace Packages.Models
 {
     [Serializable]
     public class ListDataModel
     {
         public string ListName;
-
         public List<DataModel> DataModels;
 
         public ListDataModel()

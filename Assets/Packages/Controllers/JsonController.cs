@@ -1,10 +1,11 @@
 ﻿using System.IO;
+using Packages.Models;
 using UnityEditor;
 using UnityEngine;
 
-namespace Packages.Data
+namespace Packages.Controllers
 {
-    public static class JsonManager
+    public static class JsonController
     {
         public static void SaveToJson(ListDataModel listDataModel, TextAsset fileForSave)
         {
