@@ -59,7 +59,7 @@ namespace Packages.Data
                 tempDataModel = new DataModel(i, GetRandomString());
                 inputList.Add(tempDataModel);
             }
-            inputListDataModel.DataModelsList = inputList;
+            inputListDataModel.DataModels = inputList;
         }
 
 
