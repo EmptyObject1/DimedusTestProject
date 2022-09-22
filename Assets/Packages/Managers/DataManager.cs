@@ -23,11 +23,6 @@ namespace Packages.Data
             {
                 ListName = "Second List"
             };
-
-            FillDefaultValues();
-            
-            //Debug.Log(FirstListDataModel.DataModelsList.Count);
-           // Debug.Log(SecondListDataModel.DataModelsList.Count);
         }
         
         #if UNITY_EDITOR
@@ -43,7 +38,7 @@ namespace Packages.Data
         }
         #endif
 
-        private void FillDefaultValues()
+        public void FillDefaultValues()
         {
             GenerateRandomValues(FirstListDataModel);
             GenerateRandomValues(SecondListDataModel);

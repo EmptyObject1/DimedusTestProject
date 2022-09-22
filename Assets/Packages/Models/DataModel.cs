@@ -1,10 +1,13 @@
-﻿namespace Packages.Data
+﻿using System;
+
+namespace Packages.Data
 {
+    [Serializable]
     public class DataModel
     {
-        public int IntegerValue { get; set; }
-        public string StringValue { get; set; }
-
+        public int IntegerValue;
+        public string StringValue;
+        
         public DataModel()
         {
             IntegerValue = 0;

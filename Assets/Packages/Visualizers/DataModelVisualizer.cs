@@ -10,13 +10,14 @@ namespace Packages.Visualizers
         [SerializeField] private Text intValueText;
         [SerializeField] private Text stringValueText;
 
-        public DataModel CurrentDataModel { get; set; }
+        public DataModel CurrentDataModel { get; private set; }
 
-        public void SetDataModel(DataModel dataModel)
+        public void SetupDataModel(DataModel dataModel)
         {
             CurrentDataModel = dataModel;
             UpdateView();
         }
+        
         private void UpdateView()
         {
             intValueText.text = CurrentDataModel.IntegerValue.ToString();
