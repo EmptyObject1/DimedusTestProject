@@ -40,8 +40,8 @@ namespace Packages.Data
 
         public void FillDefaultValues()
         {
-            GenerateRandomValues(FirstListDataModel);
-            GenerateRandomValues(SecondListDataModel);
+            if(FirstListDataModel.DataModels.Count==0) GenerateRandomValues(FirstListDataModel);
+            if(SecondListDataModel.DataModels.Count==0) GenerateRandomValues(SecondListDataModel);
         }
 
         private void GenerateRandomValues(ListDataModel inputListDataModel)
@@ -54,6 +54,7 @@ namespace Packages.Data
                 tempDataModel = new DataModel(i, GetRandomString());
                 inputList.Add(tempDataModel);
             }
+            
             inputListDataModel.DataModels = inputList;
         }
 
