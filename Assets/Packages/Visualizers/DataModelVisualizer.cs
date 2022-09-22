@@ -1,5 +1,4 @@
-﻿using System;
-using Packages.Data;
+﻿using Packages.Data;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,12 +16,11 @@ namespace Packages.Visualizers
             CurrentDataModel = dataModel;
             UpdateView();
         }
-        
+
         private void UpdateView()
         {
             intValueText.text = CurrentDataModel.IntegerValue.ToString();
             stringValueText.text = CurrentDataModel.StringValue;
         }
-
     }
 }

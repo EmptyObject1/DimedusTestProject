@@ -8,19 +8,19 @@ namespace Packages.Data
     {
         public static void SaveToJson(ListDataModel listDataModel, TextAsset fileForSave)
         {
-            using (StreamWriter stream = new StreamWriter(GetFilePath(fileForSave)))
+            using (var stream = new StreamWriter(GetFilePath(fileForSave)))
             {
-                string json = JsonUtility.ToJson(listDataModel);
+                var json = JsonUtility.ToJson(listDataModel);
                 stream.Write(json);
             }
         }
 
         public static ListDataModel LoadFromJson(TextAsset fileForLoad)
         {
-            using (StreamReader stream = new StreamReader(GetFilePath(fileForLoad)))
+            using (var stream = new StreamReader(GetFilePath(fileForLoad)))
             {
                 var content = stream.ReadToEnd();
-                ListDataModel result = new ListDataModel();
+                var result = new ListDataModel();
                 result = JsonUtility.FromJson<ListDataModel>(content);
 
                 return result ?? new ListDataModel();
@@ -31,6 +31,5 @@ namespace Packages.Data
         {
             return AssetDatabase.GetAssetPath(file);
         }
-      
     }
 }

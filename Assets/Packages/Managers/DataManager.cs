@@ -1,5 +1,5 @@
+using System;
 using System.Collections.Generic;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 
 namespace Packages.Data
@@ -14,6 +14,11 @@ namespace Packages.Data
 
         private void Start()
         {
+           SetupDefaultValues();
+        }
+
+        private void SetupDefaultValues()
+        {
             FirstListDataModel = new ListDataModel
             {
                 ListName = "First List"
@@ -24,8 +29,8 @@ namespace Packages.Data
                 ListName = "Second List"
             };
         }
-        
-        #if UNITY_EDITOR
+
+#if UNITY_EDITOR
         private void OnValidate()
         {
             if (!gameObject.activeInHierarchy) return;
@@ -36,12 +41,13 @@ namespace Packages.Data
             if (countLettersValue < 1 || countLettersValue > 100)
                 countLettersValue = 1;
         }
-        #endif
+#endif
 
-        public void FillDefaultValues()
+        public void FillRandomValues()
         {
-            if(FirstListDataModel.DataModels.Count==0) GenerateRandomValues(FirstListDataModel);
-            if(SecondListDataModel.DataModels.Count==0) GenerateRandomValues(SecondListDataModel);
+            SetupDefaultValues();
+            if (FirstListDataModel.DataModels.Count == 0) GenerateRandomValues(FirstListDataModel);
+            if (SecondListDataModel.DataModels.Count == 0) GenerateRandomValues(SecondListDataModel);
         }
 
         private void GenerateRandomValues(ListDataModel inputListDataModel)
@@ -54,14 +60,13 @@ namespace Packages.Data
                 tempDataModel = new DataModel(i, GetRandomString());
                 inputList.Add(tempDataModel);
             }
-            
             inputListDataModel.DataModels = inputList;
         }
 
 
         private string GetRandomString()
         {
-            string result = System.Guid.NewGuid().ToString();
+            var result = Guid.NewGuid().ToString();
             result = result.Substring(0, countLettersValue % result.Length);
             return result;
         }

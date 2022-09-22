@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Security.Cryptography;
 using Packages.Data;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,13 +7,13 @@ namespace Packages.Visualizers
 {
     public class ListDataModelVisualizer : MonoBehaviour
     {
-        [SerializeField] private Text listNameText;
+        [SerializeField] private InputField listNameInputField;
         [SerializeField] private Transform listVisualizerContainer;
         [SerializeField] private GameObject dataModelVisualizerPrefab;
 
-        public ListDataModel CurrentListDataModel { get; private set; }
+        private readonly List<GameObject> _currentDataModelVisualizers = new List<GameObject>();
 
-        private List<GameObject> _currentDataModelVisualizers = new List<GameObject>();
+        public ListDataModel CurrentListDataModel { get; private set; }
 
         public void SetupListDataModel(ListDataModel listDataModel)
         {
@@ -22,9 +21,9 @@ namespace Packages.Visualizers
             {
                 foreach (var currentGameObject in _currentDataModelVisualizers)
                     Destroy(currentGameObject);
-                
+
                 _currentDataModelVisualizers.Clear();
-                
+
                 CurrentListDataModel = listDataModel;
                 UpdateView();
             }
@@ -32,12 +31,12 @@ namespace Packages.Visualizers
 
         private void UpdateView()
         {
-            listNameText.text = CurrentListDataModel.ListName;
-            
+            listNameInputField.text = CurrentListDataModel.ListName;
+
             foreach (var dataModel in CurrentListDataModel.DataModels)
             {
-                var tempDataModelVisualizer = Instantiate(dataModelVisualizerPrefab.transform, listVisualizerContainer).
-                    GetComponent<DataModelVisualizer>();
+                var tempDataModelVisualizer = Instantiate(dataModelVisualizerPrefab.transform, listVisualizerContainer)
+                    .GetComponent<DataModelVisualizer>();
 
                 if (tempDataModelVisualizer != null)
                 {
@@ -45,6 +44,11 @@ namespace Packages.Visualizers
                     _currentDataModelVisualizers.Add(tempDataModelVisualizer.gameObject);
                 }
             }
+        }
+
+        public string GetListName()
+        {
+            return listNameInputField.text;
         }
     }
 }
