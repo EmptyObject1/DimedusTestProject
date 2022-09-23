@@ -14,7 +14,12 @@ namespace Packages.Models
             ListName = string.Empty;
             DataModels = new List<DataModel>();
         }
-
+        public ListDataModel(string listName)
+        {
+            ListName = listName;
+            DataModels = new List<DataModel>();
+        }
+        
         public ListDataModel(string listName, List<DataModel> dataModels)
         {
             ListName = listName;

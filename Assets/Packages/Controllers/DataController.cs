@@ -15,20 +15,22 @@ namespace Packages.Controllers
 
         private void Start()
         {
-           SetupDefaultNames();
+            SetupDefaultNames();
         }
 
         private void SetupDefaultNames()
         {
-            FirstListDataModel = new ListDataModel
-            {
-                ListName = "First List"
-            };
+            if(FirstListDataModel!=null)
+                FirstListDataModel.ListName = "FirstList";
+            else
+                FirstListDataModel = new ListDataModel("First List");
 
-            SecondListDataModel = new ListDataModel
-            {
-                ListName = "Second List"
-            };
+            if (SecondListDataModel != null)
+                SecondListDataModel.ListName = "SecondList";
+            else
+                SecondListDataModel = new ListDataModel("SecondList");
+
+
         }
 
 #if UNITY_EDITOR

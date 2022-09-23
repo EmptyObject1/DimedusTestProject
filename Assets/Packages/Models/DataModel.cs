@@ -1,13 +1,15 @@
 ﻿using System;
+using Packages.Models.Comparators;
+using UnityEngine;
 
 namespace Packages.Models
 {
     [Serializable]
-    public class DataModel
+    public class DataModel : IComparable
     {
         public int IntegerValue;
         public string StringValue;
-
+        
         public DataModel()
         {
             IntegerValue = 0;
@@ -18,6 +20,11 @@ namespace Packages.Models
         {
             IntegerValue = integerValue;
             StringValue = stringValue;
+        }
+
+        public int CompareTo(object obj)
+        {
+            return 0;
         }
     }
 }

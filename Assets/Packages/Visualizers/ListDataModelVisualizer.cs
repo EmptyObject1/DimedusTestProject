@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Packages.Models;
+using Packages.Models.Comparators;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,6 +22,7 @@ namespace Packages.Visualizers
         
         
         private readonly List<GameObject> _currentDataModelVisualizers = new List<GameObject>();
+        private IDataModelComparator _dataModelComparator;
 
         public ListDataModel CurrentListDataModel { get; private set; }
 
@@ -34,12 +37,14 @@ namespace Packages.Visualizers
         {
             intSortToggle.isOn = status;
             stringSortToggle.isOn = !status;
+            _dataModelComparator = new IntValueComparator();
         }
         
         private void SetupStringSort(bool status)
         {
             stringSortToggle.isOn = status;
             intSortToggle.isOn = !status;
+            _dataModelComparator = new StringValueComparator();
         }
         
         public void SetupListDataModel(ListDataModel listDataModel)
@@ -65,6 +70,9 @@ namespace Packages.Visualizers
         {
             listNameInputField.text = CurrentListDataModel.ListName;
             elementsCountText.text = $"Elements count: {CurrentListDataModel.DataModels.Count}";
+
+            var a = CurrentListDataModel.DataModels.ToArray();
+            CurrentListDataModel.DataModels.Sort(_dataModelComparator);
 
             foreach (var dataModel in CurrentListDataModel.DataModels)
             {
