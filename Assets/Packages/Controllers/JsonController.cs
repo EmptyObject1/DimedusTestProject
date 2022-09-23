@@ -21,8 +21,7 @@ namespace Packages.Controllers
             using (var stream = new StreamReader(GetFilePath(fileForLoad)))
             {
                 var content = stream.ReadToEnd();
-                var result = new ListDataModel();
-                result = JsonUtility.FromJson<ListDataModel>(content);
+                var result = JsonUtility.FromJson<ListDataModel>(content);
 
                 return result ?? new ListDataModel();
             }

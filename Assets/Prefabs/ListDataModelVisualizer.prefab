@@ -96,9 +96,11 @@ MonoBehaviour:
   elementsCountText: {fileID: 7377744130248798802}
   listVisualizerContainer: {fileID: 7840406398014889529}
   dataModelVisualizerPrefab: {fileID: 3760097813508729434, guid: b6a2a36fd0946c74c87f075465d0d6c0, type: 3}
+  verticalLayoutGroup: {fileID: 8691799370005389573}
   intSortToggle: {fileID: 583040744714805444}
   stringSortToggle: {fileID: 2455558672417241459}
   sortTypeDropdown: {fileID: 8943876443544281251}
+  _currentDataModelVisualizers: []
 --- !u!1 &1660800216377787687
 GameObject:
   m_ObjectHideFlags: 0

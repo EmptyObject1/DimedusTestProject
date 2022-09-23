@@ -14,6 +14,7 @@ namespace Packages.Visualizers
         [SerializeField] private Text elementsCountText;
         [SerializeField] private Transform listVisualizerContainer;
         [SerializeField] private GameObject dataModelVisualizerPrefab;
+        [SerializeField] private VerticalLayoutGroup verticalLayoutGroup;
 
         [Header("Service controls")] 
         [SerializeField] private Toggle intSortToggle;
@@ -21,18 +22,22 @@ namespace Packages.Visualizers
         [SerializeField] private Dropdown sortTypeDropdown;
 
 
-        private readonly List<GameObject> _currentDataModelVisualizers = new List<GameObject>();
+        public  List<DataModelVisualizer> _currentDataModelVisualizers = new List<DataModelVisualizer>();
         private IDataModelComparator _dataModelComparator;
         private SortType _sortType;
         public ListDataModel CurrentListDataModel { get; private set; }
 
         private void Start()
         {
+            AddListeners();
+        }
+
+        private void AddListeners()
+        {
             intSortToggle.onValueChanged.AddListener(SetupIntSort);
             stringSortToggle.onValueChanged.AddListener(SetupStringSort);
             sortTypeDropdown.onValueChanged.AddListener(SetupSortType);
         }
-
        
         private void SetupIntSort(bool status)
         {
@@ -47,7 +52,7 @@ namespace Packages.Visualizers
             intSortToggle.isOn = !status;
             _dataModelComparator = new StringValueComparator();
         }
-        
+
         private void SetupSortType(int selectedItem)
         {
             switch (selectedItem)
@@ -76,8 +81,8 @@ namespace Packages.Visualizers
 
         private void ClearPreviousVisualizers()
         {
-            foreach (var currentGameObject in _currentDataModelVisualizers)
-                Destroy(currentGameObject);
+            foreach (var currentVisualizer in _currentDataModelVisualizers)
+                Destroy(currentVisualizer.gameObject);
 
             _currentDataModelVisualizers.Clear();
         }
@@ -96,8 +101,8 @@ namespace Packages.Visualizers
 
                 if (tempDataModelVisualizer != null)
                 {
-                    tempDataModelVisualizer.SetupDataModel(dataModel);
-                    _currentDataModelVisualizers.Add(tempDataModelVisualizer.gameObject);
+                    tempDataModelVisualizer.SetupDataModel(dataModel, this);
+                    _currentDataModelVisualizers.Add(tempDataModelVisualizer);
                 }
             }
         }
@@ -106,8 +111,14 @@ namespace Packages.Visualizers
         private void SortList()
         {
             CurrentListDataModel.DataModels.Sort(_dataModelComparator);
+            
             if (_sortType == SortType.Desc)
                 CurrentListDataModel.DataModels.Reverse();
+        }
+
+        public void SetVerticalLayoutGroupStatus(bool status)
+        {
+            verticalLayoutGroup.enabled = status;
         }
 
         public string GetListName()
