@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Packages.Models;
 
-namespace Packages.Models.Comparators
+namespace Packages.SortCompareSettings
 {
     public class IntValueComparator : IDataModelComparator
     {

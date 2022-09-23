@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Packages.Models;
-using Packages.Models.Comparators;
+using Packages.SortCompareSettings;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -88,7 +88,6 @@ namespace Packages.Visualizers
             elementsCountText.text = $"Elements count: {CurrentListDataModel.DataModels.Count}";
 
             SortList();
-
 
             foreach (var dataModel in CurrentListDataModel.DataModels)
             {

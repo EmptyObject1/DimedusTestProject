@@ -1,4 +1,4 @@
-﻿namespace Packages.Models.Comparators
+﻿namespace Packages.SortCompareSettings
 {
     public enum SortType
     {
