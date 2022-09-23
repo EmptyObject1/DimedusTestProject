@@ -31,9 +31,15 @@ namespace Packages.Controllers
         {
             SortByAnchoredPositionY(parentVisualizer._currentDataModelVisualizers);
 
+
+
             for (int i = 0; i < parentVisualizer._currentDataModelVisualizers.Count; i++)
+            {
                 parentVisualizer._currentDataModelVisualizers[i].transform.SetSiblingIndex(i);
-            
+                parentVisualizer.CurrentListDataModel.DataModels[i] =
+                    parentVisualizer._currentDataModelVisualizers[i].CurrentDataModel;
+            }
+
             parentVisualizer.SetVerticalLayoutGroupStatus(true);
         }
 
