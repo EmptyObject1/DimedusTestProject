@@ -1491,6 +1491,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dataController: {fileID: 1689420025}
+  loadSaveController: {fileID: 1507006633}
 --- !u!4 &1621432488
 Transform:
   m_ObjectHideFlags: 0
@@ -1592,7 +1593,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.098000005}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -1.133606}
+  m_AnchoredPosition: {x: 0, y: -1.1335449}
   m_SizeDelta: {x: 0, y: 2.2671967}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1848496768

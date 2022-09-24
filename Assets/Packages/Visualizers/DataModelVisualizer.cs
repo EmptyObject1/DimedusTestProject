@@ -17,11 +17,13 @@ namespace Packages.Visualizers
         private RectTransform _rectTransform;
         private Canvas _canvas;
         private ListDataModelVisualizer _parentVisualizer;
+        private float _defaultPositionX;
 
         private void Start()
         {
             _rectTransform = GetComponent<RectTransform>();
             _canvas = GetComponent<Canvas>();
+            _defaultPositionX = _rectTransform.anchoredPosition.x;
         }
 
         public RectTransform GetRectTransform()
@@ -42,6 +44,16 @@ namespace Packages.Visualizers
             stringValueText.text = CurrentDataModel.StringValue;
         }
 
+        public ListDataModelVisualizer GetParentVisualizer()
+        {
+            return _parentVisualizer;
+        }
+
+        public float GetDefaultPositionX()
+        {
+            return _defaultPositionX;
+        }
+        
         public void OnDrag(PointerEventData eventData)
         {
             _rectTransform.anchoredPosition += eventData.delta;
@@ -50,13 +62,14 @@ namespace Packages.Visualizers
         public void OnBeginDrag(PointerEventData eventData)
         {
             _canvas.sortingOrder++;
-            _parentVisualizer.SetVerticalLayoutGroupStatus(false);
+            //_parentVisualizer.SetVerticalLayoutGroupStatus(false);
         }
 
         public void OnEndDrag(PointerEventData eventData)
         { 
             _canvas.sortingOrder--;
-            DragDropController.Instance.ResortDataModelVisualizers(_parentVisualizer);
+            DragDropController.Instance.ResortDataModelVisualizers(this);
         }
+        
     }
 }

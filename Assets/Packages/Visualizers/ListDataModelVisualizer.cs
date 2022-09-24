@@ -120,6 +120,7 @@ namespace Packages.Visualizers
 
         public void RebuildDataModels()
         {
+            SetVerticalLayoutGroupStatus(false);
             for (var i = 0; i < CurrentListDataModel.DataModels.Count; i++)
             {
                 CurrentDataModelVisualizers[i].transform.SetSiblingIndex(i);
@@ -142,6 +143,11 @@ namespace Packages.Visualizers
         public string GetListName()
         {
             return listNameInputField.text;
+        }
+
+        public Transform GetListVisualizerContainer()
+        {
+            return listVisualizerContainer;
         }
     }
 }

@@ -52,5 +52,15 @@ namespace Packages.Controllers
         {
             listDataModelVisualizer.SetupListDataModel(listDataModel);
         }
+
+        public ListDataModelVisualizer GetFirstDataModelVisualizer()
+        {
+            return firstListVisualizer;
+        }
+        public ListDataModelVisualizer GetSecondDataModelVisualizer()
+        {
+            return secondListVisualizer;
+        }
+        
     }
 }
