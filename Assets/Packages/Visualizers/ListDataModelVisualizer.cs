@@ -21,15 +21,17 @@ namespace Packages.Visualizers
         [SerializeField] private Toggle stringSortToggle;
         [SerializeField] private Dropdown sortTypeDropdown;
 
-
-        public  List<DataModelVisualizer> _currentDataModelVisualizers = new List<DataModelVisualizer>();
+        public List<DataModelVisualizer> CurrentDataModelVisualizers = new List<DataModelVisualizer>();
+        public ListDataModel CurrentListDataModel { get; private set; }
+        
         private IDataModelComparator _dataModelComparator;
         private SortType _sortType;
-        public ListDataModel CurrentListDataModel { get; private set; }
-
+        private RectTransformComparator _rectTransformComparator;
+        
         private void Start()
         {
             AddListeners();
+            _rectTransformComparator = new RectTransformComparator();
         }
 
         private void AddListeners()
@@ -38,7 +40,7 @@ namespace Packages.Visualizers
             stringSortToggle.onValueChanged.AddListener(SetupStringSort);
             sortTypeDropdown.onValueChanged.AddListener(SetupSortType);
         }
-       
+
         private void SetupIntSort(bool status)
         {
             intSortToggle.isOn = status;
@@ -67,7 +69,7 @@ namespace Packages.Visualizers
                     throw new Exception("Unknown sort type detected");
             }
         }
-        
+
         public void SetupListDataModel(ListDataModel listDataModel)
         {
             if (listDataModel != null)
@@ -81,10 +83,10 @@ namespace Packages.Visualizers
 
         private void ClearPreviousVisualizers()
         {
-            foreach (var currentVisualizer in _currentDataModelVisualizers)
+            foreach (var currentVisualizer in CurrentDataModelVisualizers)
                 Destroy(currentVisualizer.gameObject);
 
-            _currentDataModelVisualizers.Clear();
+            CurrentDataModelVisualizers.Clear();
         }
 
         private void UpdateView()
@@ -102,7 +104,7 @@ namespace Packages.Visualizers
                 if (tempDataModelVisualizer != null)
                 {
                     tempDataModelVisualizer.SetupDataModel(dataModel, this);
-                    _currentDataModelVisualizers.Add(tempDataModelVisualizer);
+                    CurrentDataModelVisualizers.Add(tempDataModelVisualizer);
                 }
             }
         }
@@ -111,11 +113,27 @@ namespace Packages.Visualizers
         private void SortList()
         {
             CurrentListDataModel.DataModels.Sort(_dataModelComparator);
-            
+
             if (_sortType == SortType.Desc)
                 CurrentListDataModel.DataModels.Reverse();
         }
 
+        public void RebuildDataModels()
+        {
+            for (var i = 0; i < CurrentListDataModel.DataModels.Count; i++)
+            {
+                CurrentDataModelVisualizers[i].transform.SetSiblingIndex(i);
+                CurrentListDataModel.DataModels[i] = CurrentDataModelVisualizers[i].CurrentDataModel;
+            }
+
+            SetVerticalLayoutGroupStatus(true);
+        }
+        
+        public void SortByAnchoredPositionY()
+        {
+            CurrentDataModelVisualizers.Sort(_rectTransformComparator);
+        }
+        
         public void SetVerticalLayoutGroupStatus(bool status)
         {
             verticalLayoutGroup.enabled = status;

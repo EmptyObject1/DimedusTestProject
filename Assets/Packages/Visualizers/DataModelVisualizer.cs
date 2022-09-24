@@ -1,5 +1,4 @@
-﻿using System;
-using Packages.Controllers;
+﻿using Packages.Controllers;
 using Packages.Models;
 using UnityEngine;
 using UnityEngine.EventSystems;
