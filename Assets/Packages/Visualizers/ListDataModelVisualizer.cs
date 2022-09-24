@@ -22,12 +22,12 @@ namespace Packages.Visualizers
         [SerializeField] private Dropdown sortTypeDropdown;
 
         public List<DataModelVisualizer> CurrentDataModelVisualizers = new List<DataModelVisualizer>();
-        public ListDataModel CurrentListDataModel { get; private set; }
-        
+
         private IDataModelComparator _dataModelComparator;
-        private SortType _sortType;
         private RectTransformComparator _rectTransformComparator;
-        
+        private SortType _sortType;
+        public ListDataModel CurrentListDataModel { get; private set; }
+
         private void Start()
         {
             AddListeners();
@@ -81,15 +81,16 @@ namespace Packages.Visualizers
             }
         }
 
-        private void ClearPreviousVisualizers()
+        public void ClearPreviousVisualizers()
         {
             foreach (var currentVisualizer in CurrentDataModelVisualizers)
                 Destroy(currentVisualizer.gameObject);
 
             CurrentDataModelVisualizers.Clear();
+            elementsCountText.text = string.Empty;
         }
 
-        
+
         private void UpdateView()
         {
             listNameInputField.text = CurrentListDataModel.ListName;
@@ -115,7 +116,7 @@ namespace Packages.Visualizers
         {
             elementsCountText.text = $"Elements count: {CurrentListDataModel.DataModels.Count}";
         }
-        
+
         private void SortList()
         {
             CurrentListDataModel.DataModels.Sort(_dataModelComparator);
@@ -131,23 +132,21 @@ namespace Packages.Visualizers
             {
                 CurrentDataModelVisualizers[i].transform.SetSiblingIndex(i);
                 CurrentListDataModel.DataModels[i] = CurrentDataModelVisualizers[i].CurrentDataModel;
-               // CurrentDataModelVisualizers[i].RewriteDefaultPositionX();
-                
             }
+
             ShowElementsCount();
 
             SetVerticalLayoutGroupStatus(true);
-            foreach (var visualizer in CurrentDataModelVisualizers)
-            {
+            
+            foreach (var visualizer in CurrentDataModelVisualizers) 
                 visualizer.RewriteDefaultPositionX();
-            }
         }
-        
+
         public void SortByAnchoredPositionY()
         {
             CurrentDataModelVisualizers.Sort(_rectTransformComparator);
         }
-        
+
         public void SetVerticalLayoutGroupStatus(bool status)
         {
             verticalLayoutGroup.enabled = status;

@@ -18,9 +18,22 @@ namespace Packages.Controllers
             SetupDefaultNames();
         }
 
+#if UNITY_EDITOR
+        private void OnValidate()
+        {
+            if (!gameObject.activeInHierarchy) return;
+
+            if (listLengthValue < 1 || listLengthValue > 10)
+                listLengthValue = 1;
+
+            if (countLettersValue < 1 || countLettersValue > 10)
+                countLettersValue = 1;
+        }
+#endif
+
         private void SetupDefaultNames()
         {
-            if(FirstListDataModel!=null)
+            if (FirstListDataModel != null)
                 FirstListDataModel.ListName = "FirstList";
             else
                 FirstListDataModel = new ListDataModel("First List");
@@ -29,22 +42,7 @@ namespace Packages.Controllers
                 SecondListDataModel.ListName = "SecondList";
             else
                 SecondListDataModel = new ListDataModel("SecondList");
-
-
         }
-
-#if UNITY_EDITOR
-        private void OnValidate()
-        {
-            if (!gameObject.activeInHierarchy) return;
-
-            if (listLengthValue < 1 || listLengthValue > 100)
-                listLengthValue = 1;
-
-            if (countLettersValue < 1 || countLettersValue > 100)
-                countLettersValue = 1;
-        }
-#endif
 
         public void FillRandomValues()
         {
@@ -63,7 +61,7 @@ namespace Packages.Controllers
                 tempDataModel = new DataModel(i, GetRandomString());
                 inputList.Add(tempDataModel);
             }
-            
+
             inputListDataModel.DataModels = inputList;
         }
 

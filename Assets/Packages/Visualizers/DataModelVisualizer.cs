@@ -12,17 +12,35 @@ namespace Packages.Visualizers
     {
         [SerializeField] private Text intValueText;
         [SerializeField] private Text stringValueText;
-        public DataModel CurrentDataModel { get; private set; }
         
-        private RectTransform _rectTransform;
         private Canvas _canvas;
-        private ListDataModelVisualizer _parentVisualizer;
         private float _defaultPositionX;
+        private ListDataModelVisualizer _parentVisualizer;
+        private RectTransform _rectTransform;
+        
+        public DataModel CurrentDataModel { get; private set; }
 
         private void Awake()
         {
             _rectTransform = GetComponent<RectTransform>();
             _canvas = GetComponent<Canvas>();
+        }
+
+        public void OnBeginDrag(PointerEventData eventData)
+        {
+            _canvas.sortingOrder++;
+            _defaultPositionX = _rectTransform.anchoredPosition.x;
+        }
+
+        public void OnDrag(PointerEventData eventData)
+        {
+            _rectTransform.anchoredPosition += eventData.delta;
+        }
+
+        public void OnEndDrag(PointerEventData eventData)
+        {
+            _canvas.sortingOrder--;
+            DragDropController.Instance.ResortDataModelVisualizers(this);
         }
 
         public RectTransform GetRectTransform()
@@ -56,24 +74,6 @@ namespace Packages.Visualizers
         public float GetDefaultPositionX()
         {
             return _defaultPositionX;
-        }
-        
-        public void OnDrag(PointerEventData eventData)
-        {
-            _rectTransform.anchoredPosition += eventData.delta;
-        }
-
-        public void OnBeginDrag(PointerEventData eventData)
-        {
-            _canvas.sortingOrder++;
-            _defaultPositionX = _rectTransform.anchoredPosition.x;
-            //_parentVisualizer.SetVerticalLayoutGroupStatus(false);
-        }
-
-        public void OnEndDrag(PointerEventData eventData)
-        { 
-            _canvas.sortingOrder--;
-            DragDropController.Instance.ResortDataModelVisualizers(this);
         }
 
         public void RewriteDefaultPositionX()

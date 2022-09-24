@@ -11,7 +11,7 @@ namespace Packages.SortCompareSettings
                 return 1;
             if (x.GetRectTransform().anchoredPosition.y > y.GetRectTransform().anchoredPosition.y)
                 return -1;
-               
+
             return 0;
         }
     }

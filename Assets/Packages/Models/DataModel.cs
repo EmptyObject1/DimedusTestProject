@@ -7,7 +7,7 @@ namespace Packages.Models
     {
         public int IntegerValue;
         public string StringValue;
-        
+
         public DataModel()
         {
             IntegerValue = 0;

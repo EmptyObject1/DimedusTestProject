@@ -5,6 +5,6 @@ namespace Packages.SortCompareSettings
 {
     public interface IDataModelComparator : IComparer<DataModel>
     {
-       
+        
     }
 }
