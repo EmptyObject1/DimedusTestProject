@@ -19,11 +19,10 @@ namespace Packages.Visualizers
         private ListDataModelVisualizer _parentVisualizer;
         private float _defaultPositionX;
 
-        private void Start()
+        private void Awake()
         {
             _rectTransform = GetComponent<RectTransform>();
             _canvas = GetComponent<Canvas>();
-            _defaultPositionX = _rectTransform.anchoredPosition.x;
         }
 
         public RectTransform GetRectTransform()
@@ -49,6 +48,11 @@ namespace Packages.Visualizers
             return _parentVisualizer;
         }
 
+        public void SetParentVisualizer(ListDataModelVisualizer visualizer)
+        {
+            _parentVisualizer = visualizer;
+        }
+
         public float GetDefaultPositionX()
         {
             return _defaultPositionX;
@@ -62,6 +66,7 @@ namespace Packages.Visualizers
         public void OnBeginDrag(PointerEventData eventData)
         {
             _canvas.sortingOrder++;
+            _defaultPositionX = _rectTransform.anchoredPosition.x;
             //_parentVisualizer.SetVerticalLayoutGroupStatus(false);
         }
 
@@ -70,6 +75,10 @@ namespace Packages.Visualizers
             _canvas.sortingOrder--;
             DragDropController.Instance.ResortDataModelVisualizers(this);
         }
-        
+
+        public void RewriteDefaultPositionX()
+        {
+            _defaultPositionX = _rectTransform.anchoredPosition.x;
+        }
     }
 }

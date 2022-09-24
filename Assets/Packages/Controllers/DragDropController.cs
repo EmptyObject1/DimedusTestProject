@@ -31,6 +31,9 @@ namespace Packages.Controllers
 
         public void ResortDataModelVisualizers(DataModelVisualizer dataModelVisualizer)
         {
+            _firstListVisualizer.SetVerticalLayoutGroupStatus(false);
+            _secondListVisualizer.SetVerticalLayoutGroupStatus(false);
+
             if (IsVisualizerMovedToSecondList(dataModelVisualizer))
                 MoveVisualizerToOtherList(dataModelVisualizer, _firstListVisualizer, _secondListVisualizer);
             
@@ -49,23 +52,34 @@ namespace Packages.Controllers
             fromListVisualizer.CurrentListDataModel.DataModels.Remove(dataModelVisualizer.CurrentDataModel);
             
             dataModelVisualizer.transform.SetParent(toListVisualizer.GetListVisualizerContainer());
+            dataModelVisualizer.SetParentVisualizer(toListVisualizer);
+            // dataModelVisualizer.RewriteDefaultPositionX();
         }
 
         private bool IsVisualizerMovedToFirstList(DataModelVisualizer visualizer)
         {
             if (_secondListVisualizer.Equals(visualizer.GetParentVisualizer()))
-                if (visualizer.GetRectTransform().anchoredPosition.x<=0)
+            {
+                float currentX = visualizer.GetRectTransform().anchoredPosition.x;
+                float defaultX = visualizer.GetDefaultPositionX();
+                if (visualizer.GetRectTransform().anchoredPosition.x <= 0)
                     return true;
-            
+            }
+
             return false;
         }
         private bool IsVisualizerMovedToSecondList(DataModelVisualizer visualizer)
         {
             if (_firstListVisualizer.Equals(visualizer.GetParentVisualizer()))
-                if (visualizer.GetRectTransform().anchoredPosition.x >
+            {
+                float currentX = visualizer.GetRectTransform().anchoredPosition.x;
+                float defaultX = visualizer.GetDefaultPositionX();
+                
+                if (visualizer.GetRectTransform().anchoredPosition.x >=
                     visualizer.GetDefaultPositionX() * 2)
                     return true;
-            
+            }
+
             return false;
         }
 

@@ -1535,8 +1535,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 971aa93608132a54696d85e5cf20a050, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  listLengthValue: 10
-  countLettersValue: 6
+  listLengthValue: 6
+  countLettersValue: 10
   FirstListDataModel:
     ListName: 
     DataModels: []

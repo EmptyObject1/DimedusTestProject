@@ -89,11 +89,11 @@ namespace Packages.Visualizers
             CurrentDataModelVisualizers.Clear();
         }
 
+        
         private void UpdateView()
         {
             listNameInputField.text = CurrentListDataModel.ListName;
-            elementsCountText.text = $"Elements count: {CurrentListDataModel.DataModels.Count}";
-
+            ShowElementsCount();
             SortList();
 
             foreach (var dataModel in CurrentListDataModel.DataModels)
@@ -105,11 +105,17 @@ namespace Packages.Visualizers
                 {
                     tempDataModelVisualizer.SetupDataModel(dataModel, this);
                     CurrentDataModelVisualizers.Add(tempDataModelVisualizer);
+                    tempDataModelVisualizer.RewriteDefaultPositionX();
                 }
             }
         }
 
 
+        private void ShowElementsCount()
+        {
+            elementsCountText.text = $"Elements count: {CurrentListDataModel.DataModels.Count}";
+        }
+        
         private void SortList()
         {
             CurrentListDataModel.DataModels.Sort(_dataModelComparator);
@@ -125,9 +131,16 @@ namespace Packages.Visualizers
             {
                 CurrentDataModelVisualizers[i].transform.SetSiblingIndex(i);
                 CurrentListDataModel.DataModels[i] = CurrentDataModelVisualizers[i].CurrentDataModel;
+               // CurrentDataModelVisualizers[i].RewriteDefaultPositionX();
+                
             }
+            ShowElementsCount();
 
             SetVerticalLayoutGroupStatus(true);
+            foreach (var visualizer in CurrentDataModelVisualizers)
+            {
+                visualizer.RewriteDefaultPositionX();
+            }
         }
         
         public void SortByAnchoredPositionY()
